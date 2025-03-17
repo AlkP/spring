@@ -3,9 +3,7 @@ package com.alkp.spring.bug.controller;
 import com.alkp.spring.base.exception.ResourceNotFountException;
 import com.alkp.spring.bug.entity.BugEntity;
 import com.alkp.spring.bug.service.BugService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,10 @@ public class BugApiController {
     @GetMapping("/api/v1/bug/{id}")
     public BugEntity byId(@PathVariable Integer id) {
         return bugService.byId(id).orElseThrow(ResourceNotFountException::new);
+    }
+
+    @PostMapping("/api/v1/bug")
+    public BugEntity create(@RequestBody BugEntity request) {
+        return bugService.create(request.getTitle(), request.getDescription());
     }
 }

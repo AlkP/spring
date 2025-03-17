@@ -34,4 +34,13 @@ public class BugService {
     public Optional<BugEntity> byId(int id) {
         return bugStorage.stream().filter(bug -> bug.getId() == id).findFirst();
     }
+
+    public BugEntity create(String title, String description) {
+        BugEntity bug = new BugEntity();
+        bug.setId(bugStorage.size());
+        bug.setTitle(title);
+        bug.setDescription(description);
+        bugStorage.add(bug);
+        return bug;
+    }
 }
