@@ -51,4 +51,14 @@ public class BugService {
         oldBugEntity.setDescription(bug.getDescription());
         return Optional.of(oldBugEntity);
     }
+
+    public Boolean delete(Integer id) {
+        Optional<BugEntity> bug = byId(id);
+        if (bug.isEmpty()) {
+            return false;
+        }
+
+        bugStorage.remove(bug.get());
+        return true;
+    }
 }

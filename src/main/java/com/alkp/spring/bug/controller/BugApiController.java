@@ -39,4 +39,9 @@ public class BugApiController {
     public BugEntity update(@PathVariable Integer id, @RequestBody BugEntity request) {
         return bugService.update(request).orElseThrow(ResourceNotFountException::new);
     }
+
+    @DeleteMapping("/api/v1/bug/{id}")
+    public Boolean delete(@PathVariable("id") Integer id) {
+        return bugService.delete(id);
+    }
 }
