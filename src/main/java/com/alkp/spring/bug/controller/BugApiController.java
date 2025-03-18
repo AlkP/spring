@@ -6,6 +6,7 @@ import com.alkp.spring.bug.service.BugService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BugApiController {
@@ -43,5 +44,10 @@ public class BugApiController {
     @DeleteMapping("/api/v1/bug/{id}")
     public Boolean delete(@PathVariable("id") Integer id) {
         return bugService.delete(id);
+    }
+
+    @PatchMapping("/api/v1/bug/{id}")
+    public BugEntity update_part(@PathVariable Integer id, @RequestBody Map<String, String> fields) {
+        return bugService.updatePart(id, fields).orElseThrow(ResourceNotFountException::new);
     }
 }

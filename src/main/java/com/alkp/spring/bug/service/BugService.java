@@ -1,13 +1,9 @@
 package com.alkp.spring.bug.service;
 
-import com.alkp.spring.base.exception.ResourceNotFountException;
 import com.alkp.spring.bug.entity.BugEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class BugService {
@@ -65,5 +61,19 @@ public class BugService {
 
         bugStorage.remove(bug.get());
         return true;
+    }
+
+    public Optional<BugEntity> updatePart(Integer id, Map<String, String> fields) {
+        Optional<BugEntity> bugOptional = byId(id);
+        if (bugOptional.isEmpty()) return Optional.empty();
+
+        BugEntity bugToEdit = bugOptional.get();
+        for(String key : fields.keySet()) {
+            switch (key) {
+                case "title" -> bugToEdit.setTitle(fields.get(key));
+                case "description" -> bugToEdit.setDescription(fields.get(key));
+            }
+        }
+        return Optional.of(bugToEdit);
     }
 }
