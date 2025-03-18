@@ -46,10 +46,15 @@ public class BugService {
     }
 
     public Optional<BugEntity> update(BugEntity bug) {
-        BugEntity oldBugEntity = byId(bug.getId()).orElseThrow();
-        oldBugEntity.setTitle(bug.getTitle());
-        oldBugEntity.setDescription(bug.getDescription());
-        return Optional.of(oldBugEntity);
+        Optional<BugEntity> bugOptional = byId(bug.getId());
+        if (bugOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        BugEntity bugToEdit = bugOptional.get();
+        bugToEdit.setTitle(bug.getTitle());
+        bugToEdit.setDescription(bug.getDescription());
+        return Optional.of(bugToEdit);
     }
 
     public Boolean delete(Integer id) {
