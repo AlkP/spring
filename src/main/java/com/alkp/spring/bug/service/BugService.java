@@ -1,5 +1,6 @@
 package com.alkp.spring.bug.service;
 
+import com.alkp.spring.base.exception.ResourceNotFountException;
 import com.alkp.spring.bug.entity.BugEntity;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,12 @@ public class BugService {
         bug.setDescription(description);
         bugStorage.add(bug);
         return bug;
+    }
+
+    public Optional<BugEntity> update(BugEntity bug) {
+        BugEntity oldBugEntity = byId(bug.getId()).orElseThrow();
+        oldBugEntity.setTitle(bug.getTitle());
+        oldBugEntity.setDescription(bug.getDescription());
+        return Optional.of(oldBugEntity);
     }
 }

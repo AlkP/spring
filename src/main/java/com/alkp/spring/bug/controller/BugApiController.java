@@ -34,4 +34,9 @@ public class BugApiController {
     public BugEntity create(@RequestBody BugEntity request) {
         return bugService.create(request.getTitle(), request.getDescription());
     }
+
+    @PutMapping("/api/v1/bug/{id}")
+    public BugEntity update(@PathVariable Integer id, @RequestBody BugEntity request) {
+        return bugService.update(request).orElseThrow(ResourceNotFountException::new);
+    }
 }
